@@ -6,9 +6,9 @@ import lombok.Data;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name="user")
 @Data
-public class User {
+public class UserProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
@@ -18,6 +18,6 @@ public class User {
     private String lastName;
     @Column(name="email")
     private String email;
-    //@OneToMany(mappedBy = "userId")
-    //private List<Product> product;
+    @OneToMany(mappedBy = "userId")
+    private List<Product> product;
 }
