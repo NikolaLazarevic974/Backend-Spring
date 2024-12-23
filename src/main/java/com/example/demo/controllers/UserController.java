@@ -25,8 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final IUserRepository userRepository;
-    private final IUserProductRepository userProductRepository;
     private final IUserService userService;
     /*
     private IUserRepository userRepository;
@@ -45,9 +43,14 @@ public class UserController {
         return userService.findAll(PageRequest.of(page, size));
     }
 
+    @GetMapping("get-user-product-list")
+    public List<UserProductModel> getUserProductsList(){
+        return userService.findUserProductsList();
+    }
+
 
     @PostMapping("create")
-    public ResponseEntity<?> createUserBody(@RequestBody @Valid UserModel userModel, BindingResult result) {
+    public ResponseEntity<?> create(@RequestBody @Valid UserModel userModel, BindingResult result) {
         if (result.hasErrors()) {
             //return ResponseEntity.badRequest().body(result);
             return new ResponseEntity<>("Neuspesno registrovan", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -56,12 +59,18 @@ public class UserController {
         return new ResponseEntity<>(userService.create(userModel), HttpStatus.CREATED);
     }
 
+    @PostMapping("update")
+    public ResponseEntity<?> update(@RequestBody @Valid UserModel userModel, BindingResult result) {
+        if (result.hasErrors()) {
+            //return ResponseEntity.badRequest().body(result);
+            return new ResponseEntity<>("Neuspesno registrovan", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-
-    @GetMapping("get-user-product-list")
-    public List<UserProductModel> getUserProductsList(){
-        return userService.findUserProductsList();
+        return new ResponseEntity<>(userService.update(userModel), HttpStatus.CREATED);
     }
+
+
+
 
 
 

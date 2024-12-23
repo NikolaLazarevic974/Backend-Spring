@@ -12,6 +12,7 @@ public interface IUserService {
 
     List<UserModel> findAll();
     UserPageModel findAll(PageRequest pageRequest);
-    UserModel create(UserModel model);
     List<UserProductModel> findUserProductsList();
+    UserModel create(UserModel model);
+    UserModel update(UserModel model);
 }
