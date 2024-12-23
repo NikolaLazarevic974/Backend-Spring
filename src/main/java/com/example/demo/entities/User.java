@@ -3,7 +3,6 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
 
 @Entity
 @Table(name = "user")

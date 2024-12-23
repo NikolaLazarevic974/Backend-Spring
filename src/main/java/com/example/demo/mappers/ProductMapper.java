@@ -1,9 +1,7 @@
 package com.example.demo.mappers;
 
 import com.example.demo.entities.Product;
-import com.example.demo.entities.User;
 import com.example.demo.models.ProductModel;
-import com.example.demo.models.UserModel;
 
 import java.util.ArrayList;
 import java.util.List;

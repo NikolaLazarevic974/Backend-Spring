@@ -1,10 +1,8 @@
 package com.example.demo.mappers;
 
 import com.example.demo.entities.User;
-import com.example.demo.entities.UserProduct;
 import com.example.demo.models.UserModel;
 import com.example.demo.models.UserPageModel;
-import com.example.demo.models.UserProductModel;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;

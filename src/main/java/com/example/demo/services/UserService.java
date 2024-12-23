@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.User;
 import com.example.demo.mappers.UserMapper;
 import com.example.demo.mappers.UserProductMapper;
 import com.example.demo.models.UserModel;
