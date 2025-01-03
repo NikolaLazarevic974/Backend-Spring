@@ -1,17 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.User;
-import com.example.demo.mappers.UserMapper;
-import com.example.demo.mappers.UserProductMapper;
 import com.example.demo.models.UserModel;
 import com.example.demo.models.UserPageModel;
 import com.example.demo.models.UserProductModel;
-import com.example.demo.repositories.IUserProductRepository;
-import com.example.demo.repositories.IUserRepository;
 import com.example.demo.services.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
