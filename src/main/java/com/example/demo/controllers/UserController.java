@@ -5,6 +5,7 @@ import com.example.demo.models.UserPageModel;
 import com.example.demo.models.UserProductModel;
 import com.example.demo.services.IUserService;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -55,12 +56,7 @@ public class UserController {
 
     @PostMapping("update")
     public ResponseEntity<?> update(@RequestBody @Valid UserModel userModel, BindingResult result) {
-        if (result.hasErrors()) {
-            //return ResponseEntity.badRequest().body(result);
-            return new ResponseEntity<>("Neuspesno registrovan", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>(userService.update(userModel), HttpStatus.CREATED);
+        return ResponseEntity.ok(userService.update(userModel));
     }
 
 

@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import com.example.demo.validators.ContactNumberConstraint;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +18,7 @@ public class UserModel {
     private String email;
     @ContactNumberConstraint
     private String contactNumber;
+    @NotBlank
+    private String password;
 
 }

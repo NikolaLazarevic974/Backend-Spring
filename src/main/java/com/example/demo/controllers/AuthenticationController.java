@@ -7,6 +7,7 @@ import com.example.demo.models.RegisterUserModel;
 import com.example.demo.models.UserModel;
 import com.example.demo.services.AuthenticationService;
 import com.example.demo.services.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,14 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
-    private final JwtService jwtService;
     private final AuthenticationService authenticationService;
-
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
-        this.jwtService = jwtService;
-        this.authenticationService = authenticationService;
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<UserModel> register(@RequestBody RegisterUserModel model) {
@@ -30,16 +26,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseModel> authenticate(@RequestBody LoginUserModel loginUserDto) {
-        User authenticatedUser = authenticationService.authenticate(loginUserDto);
-
-        String jwtToken = jwtService.generateToken(authenticatedUser);
-
-        LoginResponseModel loginResponse = new LoginResponseModel();
-        loginResponse.setToken(jwtToken);
-        loginResponse.setExpiresIn(jwtService.getExpirationTime());
-
-        return ResponseEntity.ok(loginResponse);
+    public ResponseEntity<LoginResponseModel> authenticate(@RequestBody LoginUserModel model) {
+        return ResponseEntity.ok(authenticationService.authenticate(model));
     }
 
 

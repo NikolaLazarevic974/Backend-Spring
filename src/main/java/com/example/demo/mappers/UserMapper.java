@@ -17,12 +17,13 @@ public class UserMapper {
         return UserModel.builder().id(entity.getId()).email(entity.getEmail()).firstName(entity.getFirstName()).lastName(entity.getLastName()).build();
     }
 
-    public static User toEntity(UserModel model){
+    public static User toEntity(UserModel model, PasswordEncoder passwordEncoder){
         User user = new User();
         user.setId(model.getId());
         user.setEmail(model.getEmail());
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
+        user.setPassword(passwordEncoder.encode(model.getPassword()));
         return user;
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.configuration;
 
+import com.example.demo.constants.RoleConstants;
 import com.example.demo.filters.JwtAutenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
+                .requestMatchers("/user/get-user-product-list").hasAnyRole(RoleConstants.ROLE_EMPLOYEE)
                 .anyRequest()
                 .authenticated()
                 .and()
