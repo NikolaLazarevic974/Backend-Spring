@@ -52,6 +52,11 @@ public class UserService implements IUserService {
         }
     }
 
+    public void delete(UserModel model) {
+        var entity = userRepository.findById(model.getId()).orElseThrow(() -> new UserException("User Not Found"));
+        userRepository.delete(entity);
+    }
+
     @Override
     public List<UserProductModel> findUserProductsList() {
         return UserProductMapper.toModelList(userProductRepository.findAll());

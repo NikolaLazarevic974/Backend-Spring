@@ -46,12 +46,7 @@ public class UserController {
 
     @PostMapping("create")
     public ResponseEntity<?> create(@RequestBody @Valid UserModel userModel, BindingResult result) {
-        if (result.hasErrors()) {
-            //return ResponseEntity.badRequest().body(result);
-            return new ResponseEntity<>("Neuspesno registrovan", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>(userService.create(userModel), HttpStatus.CREATED);
+        return ResponseEntity.ok(userService.create(userModel));
     }
 
     @PostMapping("update")
@@ -59,7 +54,11 @@ public class UserController {
         return ResponseEntity.ok(userService.update(userModel));
     }
 
-
+    @DeleteMapping("delete")
+    public ResponseEntity<?> delete(@RequestBody @Valid UserModel userModel, BindingResult result) {
+        userService.delete(userModel);
+        return ResponseEntity.ok("");
+    }
 
 
 
