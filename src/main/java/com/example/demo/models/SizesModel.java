@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ProductModel {
-    private String name;
+public class SizesModel {
+    private String size;
 }

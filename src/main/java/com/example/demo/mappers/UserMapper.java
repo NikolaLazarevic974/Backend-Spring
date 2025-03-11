@@ -1,11 +1,11 @@
 package com.example.demo.mappers;
 
+import com.example.demo.entities.Article;
 import com.example.demo.entities.User;
-import com.example.demo.entities.UserProduct;
+import com.example.demo.models.ArticleModel;
 import com.example.demo.models.RegisterUserModel;
 import com.example.demo.models.UserModel;
 import com.example.demo.models.UserPageModel;
-import com.example.demo.models.UserProductModel;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -14,15 +14,31 @@ import java.util.List;
 
 public class UserMapper {
     public static UserModel toModel(User entity){
-        return UserModel.builder().id(entity.getId()).email(entity.getEmail()).firstName(entity.getFirstName()).lastName(entity.getLastName()).build();
+        return UserModel.builder()
+                .id(entity.getId())
+                .email(entity.getEmail())
+                .address(entity.getAddress())
+                .cartItems(convertArticlesToModel(entity.getCartItems()))
+                .build();
     }
+
+    private static List<ArticleModel> convertArticlesToModel(List<Article> articles) {
+        if (articles == null) {
+            return new ArrayList<>();  // Return empty list if articles is null
+        }
+        List<ArticleModel> articleModels = new ArrayList<>();
+        for (Article article : articles) {
+            articleModels.add(ArticleMapper.toModel(article)); // Convert each article to ArticleModel
+        }
+        return articleModels;
+    }
+
 
     public static User toEntity(UserModel model, PasswordEncoder passwordEncoder){
         User user = new User();
         user.setId(model.getId());
         user.setEmail(model.getEmail());
-        user.setFirstName(model.getFirstName());
-        user.setLastName(model.getLastName());
+        user.setAddress(model.getAddress());
         user.setPassword(passwordEncoder.encode(model.getPassword()));
         return user;
     }
@@ -43,7 +59,11 @@ public class UserMapper {
     }
 
     public static UserPageModel toModelPagedList(Page<User> pageEntity){
-        return UserPageModel.builder().users(toModelList(pageEntity.getContent())).totalPages(pageEntity.getTotalPages()).totalElements(pageEntity.getNumberOfElements()).build();
+        return UserPageModel.builder()
+                .users(toModelList(pageEntity.getContent()))
+                .totalPages(pageEntity.getTotalPages())
+                .totalElements(pageEntity.getNumberOfElements())
+                .build();
     }
 
 }

@@ -19,16 +19,25 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
-    @Column(name="first_name")
-    private String firstName;
-    @Column(name="last_name")
-    private String lastName;
+    @Column(name="address")
+    private String address;
     @Column(name="email")
     private String email;
     @Column(name="password")
     private String password;
+
+//    @OneToMany(mappedBy = "user")
+//    private List<Review> reviews;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name="user_roles",
+    @JoinTable(name="cart_article",
+            joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="article_id", referencedColumnName = "id"))
+    @JsonManagedReference
+    private List<Article> cartItems = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="user_role",
             joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id"))
     @JsonManagedReference

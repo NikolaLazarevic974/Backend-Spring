@@ -30,7 +30,6 @@ public class AuthenticationService {
         if (existingUser.isPresent()) {
             throw new UserAlreadyExistsException("User with this email already exists");
         }
-
         return UserMapper.toModel(userRepository.save(user));
     }
 
